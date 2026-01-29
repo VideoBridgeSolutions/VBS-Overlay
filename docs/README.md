@@ -4,6 +4,10 @@
 https://github.com/phalbig-VBS/VBS-Overlay/releases
 
 
+### 💡 Feature requests: 
+https://github.com/phalbig-VBS/VBS-Overlay/issues
+
+
 # VBS Overlay — User Manual (EN)
 
 * * *
