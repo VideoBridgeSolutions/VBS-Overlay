@@ -131,7 +131,7 @@ It is designed for **observation**, not configuration.
 
 #### General
 
-*   Machine name
+*   Machine name (You can change the display name)
     
 *   VBS Overlay version
     
