@@ -1,216 +1,581 @@
-# VBS Overlay
-
-Outil d’overlay système pour serveurs médias et machines de production audiovisuelle.
-
-## ⬇️ Téléchargement
-Les versions officielles sont disponibles ici :
-👉 https://github.com/phalbig-VBS/VBS-Overlay/releases
+## Version: VBS Overlay v1.2.2 BETA  
+### Publisher: Video Bridge Solutions  
+### ⬇️ Releases: 
+https://github.com/phalbig-VBS/VBS-Overlay/releases
 
 
-## VBS Overlay — 📘 Manuel utilisateur
+# VBS Overlay — User Manual (EN)
 
-**VBS Overlay — User Manual / Manuel utilisateur**
+* * *
 
-**Version : VBS Overlay vX.Y.Z**  
-**Publisher / Éditeur : Video Bridge Solutions**
+## Overview
 
-**Table of Contents / Sommaire**
+**VBS Overlay** is a **system and network monitoring tool** designed for **audiovisual production machines**  
+(media servers, control rooms, backup machines).
 
-| **Français** | **English** |
-| --- | --- |
-| Présentation générale | General Overview |
-| Prérequis et environnement recommandé | Requirements and Recommended Environment |
-| Installation | Installation |
-| Démarrage et principes de fonctionnement | Startup and Operating Principles |
-| Menu Tray | Tray Menu |
-| Dashboard | Dashboard |
-| Fenêtre Manage | Manage Window |
-| Machines | Machines |
-| Link, Show Mode, Pattern, Desk Lock | Link, Show Mode, Pattern, Desk Lock |
-| Flags & OSC | Flags & OSC |
-| Bonnes pratiques d’exploitation | Operational Best Practices |
-| Dépannage | Troubleshooting |
-| Support, mises à jour et distribution | Support, Updates, and Distribution |
+It displays a **non-intrusive overlay** providing an immediate view of the machine’s real operating status.
 
-**Présentation générale / General Overview**
+### Displayed Information
 
-| **Français** | **English** |
-| --- | --- |
-| VBS Overlay est un outil de supervision système et réseau destiné aux machines de production audiovisuelle (media servers, régies, machines de backup). | VBS Overlay is a system and network monitoring tool designed for audiovisual production machines (media servers, control rooms, backup machines). |
-| Il affiche un overlay non intrusif permettant une lecture immédiate de l’état réel de la machine. | It displays a non-intrusive overlay that provides an immediate view of the machine’s real status. |
+*   overall system status
+    
+*   GPU and VRAM usage
+    
+*   network interfaces and IP addresses
+    
+*   storage usage
+    
+*   LAN machines
+    
+*   status indicators (Flags)
+    
 
-**Informations affichées / Displayed information**
+**Goal:** instantly know whether everything is working correctly, without disrupting live operations.
 
-| **Français** | **English** |
-| --- | --- |
-| état général | overall system status |
-| GPU et VRAM | GPU and VRAM |
-| interfaces réseau | network interfaces |
-| stockage | storage |
-| machines du LAN | LAN machines |
-| indicateurs d’état (Flags) | status indicators (Flags) |
+* * *
 
-**Objectif / Objective**
+## Requirements and Recommended Environment
 
-| **Français** | **English** |
-| --- | --- |
-| Savoir immédiatement si tout fonctionne correctement, sans perturber l’exploitation live. | Instantly know whether everything is working correctly, without disrupting live operations. |
+### System
 
-**Prérequis et environnement recommandé / Requirements and Recommended Environment**
+*   Windows 10 or Windows 11 (x64)
+    
+*   Administrator rights required for installation
+    
 
-**Système / System**
+### Target Environment
 
-| **Français** | **English** |
-| --- | --- |
-| Windows 10 ou Windows 11 (x64) | Windows 10 or Windows 11 (x64) |
-| Droits administrateur requis pour l’installation | Administrator rights required for installation |
+*   Media Server (Resolume, etc.)
+    
+*   Dedicated GPU (AMD or NVIDIA)
+    
+*   Active local network (LAN)
+    
 
-**Environnement cible / Target Environment**
+* * *
 
-| **Français** | **English** |
-| --- | --- |
-| Media Server (Resolume, etc.) | Media Server (Resolume, etc.) |
-| GPU dédié (AMD ou NVIDIA) | Dedicated GPU (AMD or NVIDIA) |
-| Réseau local actif (LAN) | Active local network (LAN) |
+## Installation
 
-**Installation**
+### Standard Installation
 
-**Installation standard / Standard Installation**
+1.  Download the latest version from the **Releases** section
+    
+2.  Run `VBSOverlay_Setup_vX.Y.Z.exe`
+    
+3.  Follow the installation wizard
+    
 
-| **Français** | **English** |
-| --- | --- |
-| Télécharger la dernière version depuis la section Releases | Download the latest version from the Releases section |
-| Lancer VBSOverlay_Setup_vX.Y.Z.exe | Launch VBSOverlay_Setup_vX.Y.Z.exe |
-| Suivre l’assistant d’installation | Follow the installation wizard |
+### Silent Installation (optional)
 
-**Installation silencieuse / Silent Installation (optional)**
+`VBSOverlay_Setup_vX.Y.Z.exe /SILENT`
 
-| **Français** | **English** |
-| --- | --- |
-| VBSOverlay_Setup_vX.Y.Z.exe /SILENT | VBSOverlay_Setup_vX.Y.Z.exe /SILENT |
+* * *
 
-**Démarrage et principes de fonctionnement / Startup and Operating Principles**
+## Startup and Operating Principles
 
-**Lancement / Startup**
+### Startup
 
-| **Français** | **English** |
-| --- | --- |
-| VBS Overlay démarre en tâche utilisateur | VBS Overlay runs as a user-level process |
-| Une icône apparaît dans la zone de notification (Tray) | An icon appears in the system notification area (Tray) |
+*   VBS Overlay runs as a user-level process
+    
+*   An icon appears in the system notification area (Tray)
+    
 
-**Philosophie générale / General Philosophy**
+### General Philosophy
 
-| **Français** | **English** |
-| --- | --- |
-| Aucun focus pris sur les applications de show | No focus is taken from show applications |
-| Overlay transparent et non cliquable | Transparent and non-clickable overlay |
-| Impact négligeable sur les performances système | Negligible impact on system performance |
+*   No focus is taken from show applications
+    
+*   Transparent, non-clickable overlay
+    
+*   Negligible impact on system performance
+    
 
-**Menu Tray / Tray Menu**
+* * *
 
-| **Français** | **English** |
-| --- | --- |
-| Le Menu Tray est le point d’accès principal à VBS Overlay. | The Tray Menu is the main access point to VBS Overlay. |
-| Il permet de piloter l’application sans ouvrir de fenêtre intrusive. | It allows you to control the application without opening any intrusive window. |
+## Tray Menu
 
-**Fonctions disponibles / Available Functions**
+The **Tray Menu** is the **main access point** to VBS Overlay.
 
-| **Français** | **English** |
-| --- | --- |
-| Ouvrir le Dashboard | Open the Dashboard |
-| Ouvrir la fenêtre Manage | Open the Manage window |
-| Afficher / masquer l’Overlay | Show / hide the Overlay |
-| Quitter l’application (arrêt propre) | Quit the application (clean shutdown) |
+It allows controlling the application without opening intrusive windows.
 
-**Dashboard**
+### Available Functions
 
-| **Français** | **English** |
-| --- | --- |
-| Le Dashboard est l’interface de supervision en temps réel. | The Dashboard is the real-time monitoring interface. |
-| Il sert à observer, pas à configurer. | It is designed for observation, not configuration. |
+*   Open the Dashboard
+    
+*   Open the Manage window
+    
+*   Show / hide the Overlay
+    
+*   Quit the application (clean shutdown)
+    
 
-**Informations générales / General Information**
+### Best Practices
 
-| **Français** | **English** |
-| --- | --- |
-| Nom de la machine | Machine name |
-| Version de VBS Overlay | VBS Overlay version |
-| État global | Global status |
+*   Use the Tray Menu before and after the show
+    
+*   Avoid any interaction during live operation
+    
 
-**GPU**
+* * *
 
-| **Français** | **English** |
-| --- | --- |
-| Liste complète des GPU détectés | Complete list of detected GPUs |
-| Utilisation GPU | GPU usage |
-| VRAM utilisée / disponible | VRAM used / available |
-| Support multi-GPU | Multi-GPU support |
+## Dashboard
 
-**Fenêtre Manage / Manage Window**
+The **Dashboard** is the **real-time monitoring interface**.
 
-| **Français** | **English** |
-| --- | --- |
-| La fenêtre Manage est le centre de configuration de VBS Overlay. | The Manage window is the configuration center of VBS Overlay. |
-| Toute modification doit être effectuée hors exploitation live. | Any modification must be performed outside of live operation. |
+It is designed for **observation**, not configuration.
 
-**Sections principales / Main Sections**
+### Displayed Information
 
-| **Français** | **English** |
-| --- | --- |
-| Machines | Machines |
-| Link | Link |
-| Options associées | Associated options |
+#### General
 
-**Flags & OSC**
+*   Machine name
+    
+*   VBS Overlay version
+    
+*   Global status
+    
 
-**Définition / Definition**
+#### GPU
 
-| **Français** | **English** |
-| --- | --- |
-| Un Flag est un indicateur visuel d’état. | A Flag is a visual status indicator. |
-| Il n’exécute aucune action et ne déclenche aucun automatisme. | It performs no action and triggers no automation. |
+*   Full list of detected GPUs
+    
+*   GPU usage
+    
+*   VRAM used / available
+    
+*   Multi-GPU support
+    
 
-**Principe du heartbeat / Heartbeat Principle**
+#### Storage
 
-| **Français** | **English** |
-| --- | --- |
-| Messages reçus régulièrement → Flag ON | Messages received regularly → Flag ON |
-| Arrêt des messages → timeout → Flag OFF | Messages stop → timeout → Flag OFF |
+*   Drive list
+    
+*   Total capacity
+    
+*   Free space
+    
 
-**Structure OSC recommandée / Recommended OSC Structure**
+#### Network
 
-| **Français** | **English** |
-| --- | --- |
-| /vbs/flag/&lt;nom_du_flag&gt; | /vbs/flag/&lt;flag_name&gt; |
+*   All active network interfaces
+    
+*   Associated IP addresses
+    
+*   Multi-line display when required
+    
 
-**Bonnes pratiques d’exploitation / Operational Best Practices**
+#### Flags
 
-| **Français** | **English** |
-| --- | --- |
-| Vérifier le Dashboard avant le show | Check the Dashboard before the show |
-| Activer Show Mode avant public | Enable Show Mode before the audience |
-| Tester Pattern hors exploitation | Test Pattern outside live operation |
-| Utiliser les flags comme indicateurs, jamais comme commandes | Use flags as indicators only, never as controls |
+*   PSC indicators
+    
+*   Updated only on state change
+    
+*   Immediate readability (OK / KO)
+    
 
-**Dépannage / Troubleshooting**
+* * *
 
-**Overlay absent / Overlay Not Visible**
+## Manage Window
 
-| **Français** | **English** |
-| --- | --- |
-| Vérifier l’icône Tray | Check the Tray icon |
-| Vérifier l’écran cible | Check the target display |
-| Vérifier les droits utilisateur | Check user permissions |
+The **Manage window** is the **configuration center** of VBS Overlay.
 
-**Support, mises à jour et distribution / Support, Updates, and Distribution**
+All changes must be performed **outside of live operation**.
 
-| **Français** | **English** |
-| --- | --- |
-| Les mises à jour sont disponibles via GitHub Releases | Updates are available via GitHub Releases |
-| Toujours vérifier la cohérence version application ↔ version manuel | Always verify application version ↔ manual version consistency |
+### Main Sections
 
-**Le code source n’est pas public.**  
-**The source code is not public.**
+*   Machines
+    
+*   Link
+    
+*   Associated options
+    
+
+* * *
+
+## Machines
+
+### Local Machine
+
+*   Always present
+    
+*   Clearly identified
+    
+*   Cannot be removed
+    
+
+### LAN Machines
+
+*   Automatic detection on the local network
+    
+*   Connection status display
+    
+*   Main / backup multi-machine supervision
+    
+
+* * *
+
+## Link, Show Mode, Pattern, Desk Lock
+
+### Link
+
+The **Link** section groups functions related to:
+
+*   communications
+    
+*   monitoring
+    
+*   logical states
+    
+
+Sensitive area — handle with care.
+
+* * *
+
+### Show Mode
+
+**Role**  
+Locks VBS Overlay into a stable state for live operation.
+
+**Effects**
+
+*   Disables risky actions
+    
+*   Freezes the interface
+    
+*   Reduces possible interactions
+    
+
+**Recommendation:** enable before the audience arrives and keep it active until the end of the show.
+
+* * *
+
+### Pattern
+
+**Role**  
+Displays a full-screen test pattern.
+
+**Uses**
+
+*   Screen alignment
+    
+*   Mapping verification
+    
+*   Signal/output testing
+    
+
+Use outside of live operation.
+
+* * *
+
+### Desk Lock
+
+**Role**  
+Blocks all user interaction with the Windows desktop.
+
+**Effects**
+
+*   Mouse and keyboard disabled
+    
+*   Overlay remains visible
+    
+*   Show applications remain unaffected
+    
+
+Enable only when the show is fully ready.
+
+* * *
+
+## Flags & OSC
+
+### Definition
+
+A **Flag** is a **visual status indicator**.  
+It performs no action and triggers no automation.
+
+It is used to:
+
+*   confirm a connection
+    
+*   verify an external state
+    
+*   anticipate a failure
+    
+
+* * *
+
+### Heartbeat Principle
+
+*   Messages received regularly → Flag ON
+    
+*   Messages stop → timeout → Flag OFF
+    
+
+* * *
+
+### Recommended OSC Structure
+
+`/vbs/flag/<flag_name>`
+
+Examples:
+
+`/vbs/flag/psc1 /vbs/flag/companion /vbs/flag/network`
+
+### Companion Example
+
+`/vbs/flag/companion 1`
+
+*   Messages received → flag ON
+    
+*   OSC loss / crash / network failure → flag OFF after timeout
+    
+
+### Flag Best Practices
+
+*   Always use a heartbeat
+    
+*   Timeout must be greater than the sending interval
+    
+*   One flag = one clear piece of information
+    
+
+**Never:**
+
+*   trigger a critical action
+    
+*   control a show using flags
+    
+
+* * *
+
+## Operational Best Practices
+
+*   Check the Dashboard before the show
+    
+*   Enable Show Mode before the audience
+    
+*   Test Pattern outside live operation
+    
+*   Use Desk Lock as a last resort
+    
+*   Use flags as indicators only
+    
+
+* * *
+
+## Troubleshooting
+
+### Overlay Not Visible
+
+*   Check the Tray icon
+    
+*   Check the target display
+    
+*   Check user permissions
+    
+
+### Incorrect GPU Data
+
+*   Check GPU drivers
+    
+*   Check multi-GPU configuration
+    
+*   Restart VBS Overlay
+    
+
+### Network Not Displayed
+
+*   Check the network interface
+    
+*   Check the local firewall
+    
+*   Ensure an IP address is assigned
+    
+
+* * *
+
+## Support, Updates, and Distribution
+
+*   Updates are available via **GitHub Releases**
+    
+*   Always match application version with the manual version
+    
+*   For support, provide:
+    
+    *   exact version
+        
+    *   Dashboard screenshot
+        
+    *   operating context
+        
+
+**Source code is not public.**
+
+© Video Bridge Solutions — VBS Overlay
+
+* * *
+
+
+
+* * *
+
+# VBS Overlay — Manuel utilisateur (FR)
+
+* * *
+
+## Présentation générale
+
+**VBS Overlay** est un outil de **supervision système et réseau** destiné aux **machines de production audiovisuelle**  
+(media servers, régies, machines de backup).
+
+Il affiche un **overlay non intrusif** permettant une lecture immédiate de l’état réel de la machine.
+
+### Informations affichées
+
+*   état général
+    
+*   GPU et VRAM
+    
+*   interfaces réseau et adresses IP
+    
+*   stockage
+    
+*   machines du LAN
+    
+*   indicateurs d’état (Flags)
+    
+
+**Objectif :** savoir immédiatement si tout fonctionne correctement, sans perturber l’exploitation live.
+
+* * *
+
+## Prérequis et environnement recommandé
+
+### Système
+
+*   Windows 10 ou Windows 11 (x64)
+    
+*   Droits administrateur requis pour l’installation
+    
+
+### Environnement cible
+
+*   Media Server (Resolume, etc.)
+    
+*   GPU dédié (AMD ou NVIDIA)
+    
+*   Réseau local actif (LAN)
+    
+
+* * *
+
+## Installation
+
+### Installation standard
+
+1.  Télécharger la dernière version depuis la section **Releases**
+    
+2.  Lancer `VBSOverlay_Setup_vX.Y.Z.exe`
+    
+3.  Suivre l’assistant d’installation
+    
+
+### Installation silencieuse (optionnelle)
+
+`VBSOverlay_Setup_vX.Y.Z.exe /SILENT`
+
+* * *
+
+## Démarrage et principes de fonctionnement
+
+### Lancement
+
+*   VBS Overlay démarre en tâche utilisateur
+    
+*   Une icône apparaît dans la zone de notification (Tray)
+    
+
+### Philosophie générale
+
+*   Aucun focus pris sur les applications de show
+    
+*   Overlay transparent et non cliquable
+    
+*   Impact négligeable sur les performances système
+    
+
+* * *
+
+## Menu Tray
+
+Le **Menu Tray** est le **point d’accès principal** à VBS Overlay.
+
+Il permet de piloter l’application sans ouvrir de fenêtre intrusive.
+
+### Fonctions disponibles
+
+*   Ouvrir le Dashboard
+    
+*   Ouvrir la fenêtre Manage
+    
+*   Afficher / masquer l’Overlay
+    
+*   Quitter l’application (arrêt propre)
+    
+
+### Bonnes pratiques
+
+*   Utiliser le Menu Tray avant et après le show
+    
+*   Éviter toute manipulation pendant l’exploitation live
+    
+
+* * *
+
+## Dashboard
+
+Le **Dashboard** est l’interface de **supervision en temps réel**.
+
+Il sert à **observer**, pas à configurer.
+
+### Informations affichées
+
+*   Nom de la machine
+    
+*   Version de VBS Overlay
+    
+*   GPU (usage, VRAM, multi-GPU)
+    
+*   Stockage (disques, espace libre)
+    
+*   Réseau (interfaces, IP)
+    
+*   Flags (OK / KO)
+    
+
+* * *
+
+## Fenêtre Manage
+
+La fenêtre **Manage** est le **centre de configuration** de VBS Overlay.
+
+Toute modification doit être effectuée **hors exploitation live**.
+
+* * *
+
+## Flags & OSC
+
+Un **Flag** est un **indicateur visuel d’état**.  
+Il n’exécute aucune action et ne déclenche aucun automatisme.
+
+*   Messages reçus régulièrement → Flag ON
+    
+*   Arrêt des messages → timeout → Flag OFF
+    
+
+Les flags servent à **informer**, jamais à piloter un show.
+
+* * *
+
+**Le code source n’est pas public.**
 
 © Video Bridge Solutions — VBS Overlay
 
