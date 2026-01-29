@@ -1,0 +1,253 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 :root\{\
+  --bg:#0b0d10;\
+  --panel:#11151b;\
+  --panel2:#0f1318;\
+  --text:#e9eef5;\
+  --muted:#a8b2c1;\
+  --border:rgba(255,255,255,.08);\
+  --accent:#7aa2ff;\
+  --accent2:#59d1c6;\
+\
+  --shadow: 0 10px 30px rgba(0,0,0,.35);\
+  --radius:14px;\
+  --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";\
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;\
+\}\
+\
+html[data-theme="light"]\{\
+  --bg:#f7f8fb;\
+  --panel:#ffffff;\
+  --panel2:#ffffff;\
+  --text:#10141b;\
+  --muted:#5b677a;\
+  --border:rgba(10,20,30,.12);\
+  --shadow: 0 10px 30px rgba(16,20,27,.12);\
+\}\
+\
+*\{box-sizing:border-box\}\
+body\{\
+  margin:0;\
+  font-family:var(--font);\
+  background:var(--bg);\
+  color:var(--text);\
+\}\
+\
+a\{color:var(--accent); text-decoration:none\}\
+a:hover\{ text-decoration:underline \}\
+\
+kbd\{\
+  font-family:var(--mono);\
+  font-size:.85em;\
+  background:var(--panel);\
+  border:1px solid var(--border);\
+  border-bottom-color:rgba(255,255,255,.18);\
+  padding:.1rem .35rem;\
+  border-radius:8px;\
+\}\
+\
+.topbar\{\
+  position:sticky; top:0; z-index:10;\
+  display:flex;\
+  gap:12px;\
+  align-items:center;\
+  justify-content:space-between;\
+  padding:14px 18px;\
+  background:linear-gradient(180deg, var(--panel2), rgba(0,0,0,0));\
+  backdrop-filter:saturate(140%) blur(10px);\
+  border-bottom:1px solid var(--border);\
+\}\
+\
+.brand__title\{font-weight:800; letter-spacing:.2px\}\
+.brand__meta\{display:flex; gap:10px; align-items:center; margin-top:2px\}\
+\
+.badge\{\
+  font-family:var(--mono);\
+  font-size:.85rem;\
+  padding:.2rem .55rem;\
+  border:1px solid var(--border);\
+  border-radius:999px;\
+  background:rgba(255,255,255,.03);\
+\}\
+\
+.muted\{color:var(--muted)\}\
+.small\{font-size:.9rem\}\
+\
+.topbar__right\{display:flex; gap:10px; align-items:center; flex-wrap:wrap\}\
+\
+.search\{\
+  display:flex; align-items:center; gap:8px;\
+  padding:8px 10px;\
+  border:1px solid var(--border);\
+  border-radius:999px;\
+  background:rgba(255,255,255,.03);\
+  min-width:min(460px, 52vw);\
+\}\
+.search__icon\{opacity:.75\}\
+.search input\{\
+  border:0; outline:0;\
+  background:transparent;\
+  color:var(--text);\
+  width:100%;\
+  font-size:.95rem;\
+\}\
+.search input::placeholder\{color:var(--muted)\}\
+.iconbtn\{\
+  border:1px solid var(--border);\
+  background:rgba(255,255,255,.03);\
+  color:var(--text);\
+  border-radius:12px;\
+  padding:8px 10px;\
+  cursor:pointer;\
+\}\
+.iconbtn:hover\{border-color:rgba(255,255,255,.18)\}\
+.btn\{\
+  border:1px solid var(--border);\
+  background:rgba(255,255,255,.06);\
+  color:var(--text);\
+  border-radius:12px;\
+  padding:9px 12px;\
+  cursor:pointer;\
+  font-weight:600;\
+\}\
+.btn:hover\{border-color:rgba(255,255,255,.18)\}\
+.btn--ghost\{background:transparent\}\
+\
+.layout\{\
+  display:grid;\
+  grid-template-columns: 320px 1fr;\
+  gap:18px;\
+  padding:18px;\
+  max-width:1280px;\
+  margin:0 auto;\
+\}\
+\
+.sidebar\{\
+  position:sticky;\
+  top:78px;\
+  align-self:start;\
+  height:calc(100vh - 96px);\
+  overflow:auto;\
+  padding:16px;\
+  border:1px solid var(--border);\
+  border-radius:var(--radius);\
+  background:var(--panel);\
+  box-shadow:var(--shadow);\
+\}\
+\
+.sidebar__title\{font-weight:800; margin-bottom:10px\}\
+.sidebar__section\{margin-bottom:18px\}\
+.links\{display:flex; flex-direction:column; gap:8px\}\
+\
+#toc a\{\
+  display:block;\
+  padding:8px 10px;\
+  border-radius:10px;\
+  color:var(--text);\
+  border:1px solid transparent;\
+\}\
+#toc a:hover\{\
+  background:rgba(255,255,255,.04);\
+  border-color:var(--border);\
+  text-decoration:none;\
+\}\
+#toc a.active\{\
+  background:rgba(122,162,255,.12);\
+  border-color:rgba(122,162,255,.35);\
+\}\
+\
+#toc .toc-h3\{\
+  margin-left:10px;\
+  opacity:.95;\
+  font-size:.95rem;\
+\}\
+\
+.content\{\
+  padding:18px 22px;\
+  border:1px solid var(--border);\
+  border-radius:var(--radius);\
+  background:var(--panel);\
+  box-shadow:var(--shadow);\
+  min-height:70vh;\
+\}\
+\
+.hero\{padding:6px 0 14px\}\
+.lead\{color:var(--muted); font-size:1.05rem; line-height:1.6; max-width:80ch\}\
+\
+.callouts\{\
+  display:grid;\
+  grid-template-columns:repeat(3, minmax(0,1fr));\
+  gap:12px;\
+  margin-top:14px;\
+\}\
+.callout\{\
+  border:1px solid var(--border);\
+  border-radius:14px;\
+  padding:12px 12px;\
+  background:rgba(255,255,255,.03);\
+\}\
+.callout__title\{font-weight:800; margin-bottom:6px\}\
+.callout__text\{color:var(--muted); line-height:1.5\}\
+\
+h1\{font-size:2rem; margin:10px 0 8px\}\
+h2\{\
+  font-size:1.35rem;\
+  margin:26px 0 10px;\
+  padding-top:10px;\
+  border-top:1px solid var(--border);\
+\}\
+h3\{font-size:1.08rem; margin:18px 0 8px\}\
+p,li\{line-height:1.65\}\
+code\{\
+  font-family:var(--mono);\
+  background:rgba(255,255,255,.06);\
+  border:1px solid var(--border);\
+  padding:.12rem .35rem;\
+  border-radius:10px;\
+\}\
+\
+.footer\{\
+  margin-top:30px;\
+  padding-top:16px;\
+  border-top:1px solid var(--border);\
+\}\
+\
+.toast\{\
+  position:fixed;\
+  left:50%;\
+  bottom:18px;\
+  transform:translateX(-50%);\
+  background:rgba(0,0,0,.75);\
+  color:white;\
+  padding:10px 12px;\
+  border-radius:12px;\
+  border:1px solid rgba(255,255,255,.14);\
+  opacity:0;\
+  pointer-events:none;\
+  transition:opacity .2s ease;\
+  font-size:.95rem;\
+\}\
+.toast.show\{opacity:1\}\
+\
+@media (max-width: 980px)\{\
+  .layout\{grid-template-columns:1fr\}\
+  .sidebar\{position:relative; top:auto; height:auto\}\
+  .search\{min-width: 0; width: min(520px, 60vw)\}\
+  .callouts\{grid-template-columns:1fr\}\
+\}\
+\
+/* Print */\
+@media print\{\
+  .topbar, .sidebar, .toast \{display:none !important\}\
+  body\{background:white\}\
+  .layout\{padding:0; max-width:none\}\
+  .content\{border:0; box-shadow:none\}\
+  a\{color:black; text-decoration:underline\}\
+\}\
+}
