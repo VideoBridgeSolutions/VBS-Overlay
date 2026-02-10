@@ -1,4 +1,4 @@
-## Version: VBS Overlay v1.2.3 BETA
+## VBS Overlay
 ### Publisher: Video Bridge Solutions  
 ### ⬇️ Releases: 
 https://github.com/phalbig-VBS/VBS-Overlay/releases
