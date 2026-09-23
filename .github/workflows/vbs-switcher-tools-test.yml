@@ -1,0 +1,94 @@
+name: Build VBS Switcher Tools TEST
+
+on:
+  push:
+    branches: [ "build/vbs-switcher-tools-test" ]
+  workflow_dispatch:
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand source
+        shell: pwsh
+        run: |
+          $b64 = Get-Content prototypes/VBS-Switcher-Tools/source.tar.gz.b64 -Raw
+          [IO.File]::WriteAllBytes('source.tar.gz',[Convert]::FromBase64String($b64))
+          tar -xzf source.tar.gz -C prototypes/VBS-Switcher-Tools
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Publish Windows x64
+        shell: pwsh
+        run: dotnet publish prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/VBS.SwitcherTools.csproj -c Release -r win-x64 --self-contained true -o out/windows-x64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-x64
+          path: out/windows-x64
+
+  macos:
+    strategy:
+      matrix:
+        rid: [osx-arm64, osx-x64]
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand source
+        run: |
+          base64 --decode prototypes/VBS-Switcher-Tools/source.tar.gz.b64 > source.tar.gz
+          tar -xzf source.tar.gz -C prototypes/VBS-Switcher-Tools
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Publish macOS
+        run: dotnet publish prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/VBS.SwitcherTools.csproj -c Release -r ${{ matrix.rid }} --self-contained true -o out/${{ matrix.rid }}
+      - name: Create app bundle
+        run: |
+          APP="out/VBS Switcher Tools-${{ matrix.rid }}.app"
+          mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+          cp -R out/${{ matrix.rid }}/* "$APP/Contents/MacOS/"
+          chmod +x "$APP/Contents/MacOS/VBS.SwitcherTools"
+          cat > "$APP/Contents/Info.plist" <<'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0"><dict>
+          <key>CFBundleName</key><string>VBS Switcher Tools</string>
+          <key>CFBundleDisplayName</key><string>VBS Switcher Tools</string>
+          <key>CFBundleIdentifier</key><string>com.videobridgesolutions.switchertools</string>
+          <key>CFBundleVersion</key><string>0.1.0</string>
+          <key>CFBundleShortVersionString</key><string>0.1.0</string>
+          <key>CFBundleExecutable</key><string>VBS.SwitcherTools</string>
+          <key>NSHighResolutionCapable</key><true/>
+          </dict></plist>
+          PLIST
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.rid }}
+          path: out/VBS Switcher Tools-${{ matrix.rid }}.app
+
+  bundle:
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Expand source
+        run: |
+          base64 --decode prototypes/VBS-Switcher-Tools/source.tar.gz.b64 > source.tar.gz
+          mkdir -p expanded
+          tar -xzf source.tar.gz -C expanded
+      - uses: actions/download-artifact@v4
+        with:
+          path: bundle/Builds
+      - name: Add source and docs
+        run: |
+          mkdir -p bundle/Source
+          cp -R expanded/src bundle/Source/
+          cp expanded/README.md bundle/
+          cp expanded/ROADMAP_VBS_SWITCHER_TOOLS_TODO.txt bundle/
+          cp -R expanded/scripts bundle/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: VBS-Switcher-Tools-TEST-0.1.0-PC-MAC
+          path: bundle
+          retention-days: 7
