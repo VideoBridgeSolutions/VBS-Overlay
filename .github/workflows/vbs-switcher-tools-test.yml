@@ -36,7 +36,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Expand source
         run: |
-          base64 --decode prototypes/VBS-Switcher-Tools/source.tar.gz.b64 > source.tar.gz
+          python3 - <<'PY'
+          import base64, pathlib
+          src = pathlib.Path('prototypes/VBS-Switcher-Tools/source.tar.gz.b64').read_text().strip()
+          pathlib.Path('source.tar.gz').write_bytes(base64.b64decode(src))
+          PY
           tar -xzf source.tar.gz -C prototypes/VBS-Switcher-Tools
       - uses: actions/setup-dotnet@v4
         with:
@@ -74,7 +78,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Expand source
         run: |
-          base64 --decode prototypes/VBS-Switcher-Tools/source.tar.gz.b64 > source.tar.gz
+          python3 - <<'PY'
+          import base64, pathlib
+          src = pathlib.Path('prototypes/VBS-Switcher-Tools/source.tar.gz.b64').read_text().strip()
+          pathlib.Path('source.tar.gz').write_bytes(base64.b64decode(src))
+          PY
           mkdir -p expanded
           tar -xzf source.tar.gz -C expanded
       - uses: actions/download-artifact@v4
