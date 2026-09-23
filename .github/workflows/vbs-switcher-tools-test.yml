@@ -27,6 +27,10 @@ jobs:
           $p = Get-Content $program -Raw
           $p = $p.Replace("            .WithInterFont()`r`n","").Replace("            .WithInterFont()`n","")
           Set-Content $program $p -NoNewline
+          $xaml = 'prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/MainWindow.axaml'
+          $x = Get-Content $xaml -Raw
+          $x = $x.Replace(' ColumnDefinitions="46,70,100,2*,130,150,160" Padding="12,9"',' ColumnDefinitions="46,70,100,2*,130,150,160"')
+          Set-Content $xaml $x -NoNewline
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -63,6 +67,8 @@ jobs:
           cs.write_text(s)
           pr = Path('prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/Program.cs')
           pr.write_text(pr.read_text().replace('            .WithInterFont()\n',''))
+          xaml = Path('prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/MainWindow.axaml')
+          xaml.write_text(xaml.read_text().replace(' ColumnDefinitions="46,70,100,2*,130,150,160" Padding="12,9"',' ColumnDefinitions="46,70,100,2*,130,150,160"'))
           PY
       - uses: actions/setup-dotnet@v4
         with:
@@ -107,6 +113,15 @@ jobs:
           PY
           mkdir -p expanded
           tar -xzf source.tar.gz -C expanded
+          python3 - <<'PY'
+          from pathlib import Path
+          cs = Path('expanded/src/VBS.SwitcherTools/VBS.SwitcherTools.csproj')
+          cs.write_text('\n'.join(line for line in cs.read_text().splitlines() if '<ApplicationIcon' not in line) + '\n')
+          pr = Path('expanded/src/VBS.SwitcherTools/Program.cs')
+          pr.write_text(pr.read_text().replace('            .WithInterFont()\n',''))
+          xaml = Path('expanded/src/VBS.SwitcherTools/MainWindow.axaml')
+          xaml.write_text(xaml.read_text().replace(' ColumnDefinitions="46,70,100,2*,130,150,160" Padding="12,9"',' ColumnDefinitions="46,70,100,2*,130,150,160"'))
+          PY
       - uses: actions/download-artifact@v4
         with:
           path: bundle/Builds
