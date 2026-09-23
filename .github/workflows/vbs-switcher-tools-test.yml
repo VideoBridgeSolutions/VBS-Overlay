@@ -16,6 +16,17 @@ jobs:
           $b64 = Get-Content prototypes/VBS-Switcher-Tools/source.tar.gz.b64 -Raw
           [IO.File]::WriteAllBytes('source.tar.gz',[Convert]::FromBase64String($b64))
           tar -xzf source.tar.gz -C prototypes/VBS-Switcher-Tools
+      - name: Patch test packaging
+        shell: pwsh
+        run: |
+          $csproj = 'prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/VBS.SwitcherTools.csproj'
+          $s = Get-Content $csproj -Raw
+          $s = $s -replace '(?m)^\s*<ApplicationIcon.*?</ApplicationIcon>\r?\n',''
+          Set-Content $csproj $s -NoNewline
+          $program = 'prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/Program.cs'
+          $p = Get-Content $program -Raw
+          $p = $p.Replace("            .WithInterFont()`r`n","").Replace("            .WithInterFont()`n","")
+          Set-Content $program $p -NoNewline
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
@@ -42,6 +53,17 @@ jobs:
           pathlib.Path('source.tar.gz').write_bytes(base64.b64decode(src))
           PY
           tar -xzf source.tar.gz -C prototypes/VBS-Switcher-Tools
+      - name: Patch test packaging
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          cs = Path('prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/VBS.SwitcherTools.csproj')
+          s = cs.read_text()
+          s = '\n'.join(line for line in s.splitlines() if '<ApplicationIcon' not in line) + '\n'
+          cs.write_text(s)
+          pr = Path('prototypes/VBS-Switcher-Tools/src/VBS.SwitcherTools/Program.cs')
+          pr.write_text(pr.read_text().replace('            .WithInterFont()\n',''))
+          PY
       - uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
